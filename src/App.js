@@ -10,6 +10,12 @@ state= {
   person2:["Diana",21]
   }
 
+  changeHandler = (event) => { this.setState({
+    person1:["Alex",20],
+    person2:[event.target.value,40]
+    })
+
+  }
 
   nameHandler = (name) => { this.setState({
     person1:[name,20],
@@ -21,7 +27,7 @@ render(){
   <h1>Hi, I am a react App.</h1>
   <button onClick={() => this.nameHandler("Sobhan")}>Update Names</button>
   <Person click={this.nameHandler.bind(this,"Fereshte")} name={this.state.person1[0]}  age={this.state.person1[1]}/>
-  <Person name={this.state.person2[0]}  age={this.state.person2[1]}>The sister</Person>
+  <Person changed={this.changeHandler} name={this.state.person2[0]}  age={this.state.person2[1]}>The sister</Person>
 </div>)
 }
   
