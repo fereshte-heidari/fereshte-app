@@ -3,27 +3,28 @@ import { Component, useState } from 'react';
 import './App.css';
 import Person from "./Person/Person.js"
 
-const App= () => {
+class App extends Component {
 
-const [personState,setPersonState]= useState({
+state= {
   person1:["Alex",20],
   person2:["Diana",21]
-  });
+  }
 
-const nameHandler= () => {
 
- setPersonState({
-    person1:["Fereshte",28],
+  nameHandler = (name) => { this.setState({
+    person1:[name,20],
     person2:["Diana",40]
     })
-}
-
-  return <div className="App">
+  }
+render(){
+  return (<div className="App">
   <h1>Hi, I am a react App.</h1>
-  <button onClick={nameHandler}>Update Names</button>
-  <Person name={personState.person1[0]}  age={personState.person1[1]}/>
-  <Person name={personState.person2[0]}  age={personState.person2[1]}>The sister</Person>
-</div>
+  <button onClick={() => this.nameHandler("Sobhan")}>Update Names</button>
+  <Person click={this.nameHandler.bind(this,"Fereshte")} name={this.state.person1[0]}  age={this.state.person1[1]}/>
+  <Person name={this.state.person2[0]}  age={this.state.person2[1]}>The sister</Person>
+</div>)
+}
+  
 
 
 
