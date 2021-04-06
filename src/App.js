@@ -8,13 +8,7 @@ class App extends Component {
   state = {
     person1: ["Alex", 20],
     person2: ["Diana", 21],
-    babe: {
-      username: "Fereshte",
-    },
-  };
-
-  babeHandler = (event) => {
-    this.setState({ babe: { username: event.target.value } });
+    showPerson: false,
   };
 
   changeHandler = (event) => {
@@ -30,34 +24,39 @@ class App extends Component {
       person2: ["Diana", 40],
     });
   };
+
+  showHandler = () => {
+    const show = this.state.showPerson;
+    this.setState({ showPerson: !show });
+  };
+
   render() {
     const style = {
       border: "solid blue 1px",
       cursor: "pointer",
     };
+
     return (
       <div className="App">
         <h1>Hi, I am a React App.</h1>
-        <button style={style} onClick={() => this.nameHandler("Sobhan")}>
+        <button style={style} onClick={this.showHandler}>
           Update Names
         </button>
-        <Person
-          click={this.nameHandler.bind(this, "Fereshte")}
-          name={this.state.person1[0]}
-          age={this.state.person1[1]}
-        />
-        <Person
-          changed={this.changeHandler}
-          name={this.state.person2[0]}
-          age={this.state.person2[1]}
-        >
-          The sister
-        </Person>
-        <UserInput
-          babeHand={this.babeHandler}
-          username={this.state.babe.username}
-        />
-        <UserOutput username={this.state.babe.username} />
+        {this.state.showPerson ? (
+          <div>
+            <Person
+              click={this.nameHandler.bind(this, "Fereshte")}
+              name={this.state.person1[0]}
+              age={this.state.person1[1]}
+            />
+
+            <Person
+              changed={this.changeHandler}
+              name={this.state.person2[0]}
+              age={this.state.person2[1]}
+            />
+          </div>
+        ) : null}
       </div>
     );
   }
