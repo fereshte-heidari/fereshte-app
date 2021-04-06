@@ -53,7 +53,10 @@ class App extends Component {
         >
           The sister
         </Person>
-        <UserInput babeHand={this.babeHandler} />
+        <UserInput
+          babeHand={this.babeHandler}
+          username={this.state.babe.username}
+        />
         <UserOutput username={this.state.babe.username} />
       </div>
     );
