@@ -35,7 +35,12 @@ class App extends Component {
     const show = this.state.showPerson;
     this.setState({ showPerson: !show });
   };
+  deleteHandler = (index) => {
+    const persons = this.state.persons;
+    persons.splice(index, 1);
 
+    this.setState({ persons: persons });
+  };
   render() {
     const style = {
       border: "solid blue 1px",
@@ -45,21 +50,15 @@ class App extends Component {
     if (this.state.showPerson) {
       person = (
         <div>
-          {this.state.persons.map((person) => {
-            return <Person name={person.name} age={person.age} />;
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                click={() => this.deleteHandler(index)}
+                name={person.name}
+                age={person.age}
+              />
+            );
           })}
-
-          {/* <Person
-            click={this.nameHandler.bind(this, "Fereshte")}
-            name={this.state.person1[0]}
-            age={this.state.person1[1]}
-          />
-
-          <Person
-            changed={this.changeHandler}
-            name={this.state.person2[0]}
-            age={this.state.person2[1]}
-          /> */}
         </div>
       );
     }
@@ -75,15 +74,5 @@ class App extends Component {
     );
   }
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <h1>Hi, I am a react App.</h1>
-//       <Person name="Alex"  age="20"/>
-//       <Person name="Diana"  age="21">The sister</Person>
-//     </div>
-//   );
-// }
 
 export default App;
