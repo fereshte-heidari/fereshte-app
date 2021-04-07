@@ -6,22 +6,28 @@ import UserInput from "./UserInput.js";
 import UserOutput from "./UserOutput.js";
 class App extends Component {
   state = {
-    person1: ["Alex", 20],
-    person2: ["Diana", 21],
+    persons: [
+      { name: "Alex", age: 20 },
+      { name: "Diana", age: 21 },
+    ],
     showPerson: false,
   };
 
   changeHandler = (event) => {
     this.setState({
-      person1: ["Alex", 20],
-      person2: [event.target.value, 40],
+      persons: [
+        { name: "Alex", age: 20 },
+        { name: event.target.value, age: 21 },
+      ],
     });
   };
 
   nameHandler = (name) => {
     this.setState({
-      person1: [name, 20],
-      person2: ["Diana", 40],
+      persons: [
+        { name: name, age: 20 },
+        { name: "Diana", age: 21 },
+      ],
     });
   };
 
@@ -35,6 +41,28 @@ class App extends Component {
       border: "solid blue 1px",
       cursor: "pointer",
     };
+    let person;
+    if (this.state.showPerson) {
+      person = (
+        <div>
+          {this.state.persons.map((person) => {
+            return <Person name={person.name} age={person.age} />;
+          })}
+
+          {/* <Person
+            click={this.nameHandler.bind(this, "Fereshte")}
+            name={this.state.person1[0]}
+            age={this.state.person1[1]}
+          />
+
+          <Person
+            changed={this.changeHandler}
+            name={this.state.person2[0]}
+            age={this.state.person2[1]}
+          /> */}
+        </div>
+      );
+    }
 
     return (
       <div className="App">
@@ -42,21 +70,7 @@ class App extends Component {
         <button style={style} onClick={this.showHandler}>
           Update Names
         </button>
-        {this.state.showPerson ? (
-          <div>
-            <Person
-              click={this.nameHandler.bind(this, "Fereshte")}
-              name={this.state.person1[0]}
-              age={this.state.person1[1]}
-            />
-
-            <Person
-              changed={this.changeHandler}
-              name={this.state.person2[0]}
-              age={this.state.person2[1]}
-            />
-          </div>
-        ) : null}
+        {person}
       </div>
     );
   }
