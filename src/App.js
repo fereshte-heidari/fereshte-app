@@ -4,18 +4,25 @@ import "./App.css";
 import Person from "./Person/Person.js";
 import UserInput from "./UserInput.js";
 import UserOutput from "./UserOutput.js";
+import ValidationComponent from "./ValidationComponent.js";
+import CharComponent from "./CharComponent.js";
 class App extends Component {
   state = {
     persons: [
       { id: "saba1", name: "Alex", age: 20 },
       { id: "mahla1", name: "Diana", age: 21 },
+      { id: "m22ahla1", name: "Diana", age: 21 },
     ],
     showPerson: false,
     numberOfChar: 0,
+    userName: "",
   };
 
   inputChangeHandler = (event) => {
-    this.setState({ numberOfChar: event.target.value.length });
+    this.setState({
+      numberOfChar: event.target.value.length,
+      userName: event.target.value,
+    });
   };
 
   changeHandler = (event, id) => {
@@ -77,8 +84,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input onChange={this.inputChangeHandler} />
-        <p>Number Of Characters: {this.state.numberOfChar}</p>
+        <CharComponent char={this.inputChangeHandler} />
+        <ValidationComponent number={this.state.numberOfChar} />
+        <p>{this.state.userName}</p>
         <h1>Hi, I am a React App.</h1>
         <button style={style} onClick={this.showHandler}>
           Update Names
