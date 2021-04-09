@@ -11,6 +11,11 @@ class App extends Component {
       { id: "mahla1", name: "Diana", age: 21 },
     ],
     showPerson: false,
+    numberOfChar: 0,
+  };
+
+  inputChangeHandler = (event) => {
+    this.setState({ numberOfChar: event.target.value.length });
   };
 
   changeHandler = (event, id) => {
@@ -72,6 +77,8 @@ class App extends Component {
 
     return (
       <div className="App">
+        <input onChange={this.inputChangeHandler} />
+        <p>Number Of Characters: {this.state.numberOfChar}</p>
         <h1>Hi, I am a React App.</h1>
         <button style={style} onClick={this.showHandler}>
           Update Names
