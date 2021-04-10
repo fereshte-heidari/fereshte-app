@@ -1,7 +1,7 @@
 import React from "react";
 
 const ValidationComponent = (props) => {
-  return <p> length of the text is : {props.number}</p>;
+  return <p> {props.output}</p>;
 };
 
 export default ValidationComponent;

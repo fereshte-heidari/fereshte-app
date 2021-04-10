@@ -56,6 +56,7 @@ class App extends Component {
 
     this.setState({ persons: persons });
   };
+
   render() {
     const style = {
       border: "solid blue 1px",
@@ -81,12 +82,23 @@ class App extends Component {
         </div>
       );
     }
+    let text;
+    if (this.state.numberOfChar <= 5) {
+      text = "Text too Short";
+    } else {
+      text = "Text long enough";
+    }
+
+    const charList = this.state.userName.split("").map((user) => {
+      return <CharComponent letter={user} />;
+    });
 
     return (
       <div className="App">
-        <CharComponent char={this.inputChangeHandler} />
-        <ValidationComponent number={this.state.numberOfChar} />
+        <input onChange={this.inputChangeHandler} />
+        <ValidationComponent output={text} />
         <p>{this.state.userName}</p>
+        {charList}
         <h1>Hi, I am a React App.</h1>
         <button style={style} onClick={this.showHandler}>
           Update Names

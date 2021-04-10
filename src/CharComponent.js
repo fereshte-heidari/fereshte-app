@@ -7,7 +7,7 @@ const style = {
   border: "1px solid black",
 };
 const CharComponent = (props) => {
-  return <input style={style} onChange={props.char} />;
+  return <div style={style}>{props.letter}</div>;
 };
 
 export default CharComponent;
