@@ -25,6 +25,14 @@ class App extends Component {
     });
   };
 
+  deletingHandler = (index) => {
+    let userName = this.state.userName.split("");
+    userName.splice(index, 1);
+    let updatedUserName = userName.join("");
+
+    this.setState({ userName: updatedUserName });
+  };
+
   changeHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex((p) => {
       return id === p.id;
@@ -89,8 +97,14 @@ class App extends Component {
       text = "Text long enough";
     }
 
-    const charList = this.state.userName.split("").map((user) => {
-      return <CharComponent letter={user} />;
+    const charList = this.state.userName.split("").map((user, index) => {
+      return (
+        <CharComponent
+          deleting={() => this.deletingHandler(index)}
+          letter={user}
+          key={index}
+        />
+      );
     });
 
     return (

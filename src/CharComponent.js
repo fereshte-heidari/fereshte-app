@@ -7,7 +7,11 @@ const style = {
   border: "1px solid black",
 };
 const CharComponent = (props) => {
-  return <div style={style}>{props.letter}</div>;
+  return (
+    <div onClick={props.deleting} style={style}>
+      {props.letter}
+    </div>
+  );
 };
 
 export default CharComponent;
