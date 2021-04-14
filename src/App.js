@@ -2,10 +2,7 @@
 import { Component, useState } from "react";
 import "./App.css";
 import Person from "./Person/Person.js";
-import UserInput from "./UserInput.js";
-import UserOutput from "./UserOutput.js";
-import ValidationComponent from "./ValidationComponent.js";
-import CharComponent from "./CharComponent.js";
+import Radium from "radium";
 class App extends Component {
   state = {
     persons: [
@@ -14,23 +11,6 @@ class App extends Component {
       { id: "m22ahla1", name: "Diana", age: 21 },
     ],
     showPerson: false,
-    numberOfChar: 0,
-    userName: "",
-  };
-
-  inputChangeHandler = (event) => {
-    this.setState({
-      numberOfChar: event.target.value.length,
-      userName: event.target.value,
-    });
-  };
-
-  deletingHandler = (index) => {
-    let userName = this.state.userName.split("");
-    userName.splice(index, 1);
-    let updatedUserName = userName.join("");
-
-    this.setState({ userName: updatedUserName });
   };
 
   changeHandler = (event, id) => {
@@ -69,6 +49,10 @@ class App extends Component {
     const style = {
       border: "solid blue 1px",
       cursor: "pointer",
+      backgroundColor: "green",
+      color: "white",
+      height: "40px",
+      weight: "100px",
     };
     let person;
     if (this.state.showPerson) {
@@ -89,6 +73,7 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor = "purple";
     }
     let text;
     if (this.state.numberOfChar <= 5) {
@@ -97,22 +82,8 @@ class App extends Component {
       text = "Text long enough";
     }
 
-    const charList = this.state.userName.split("").map((user, index) => {
-      return (
-        <CharComponent
-          deleting={() => this.deletingHandler(index)}
-          letter={user}
-          key={index}
-        />
-      );
-    });
-
     return (
       <div className="App">
-        <input onChange={this.inputChangeHandler} />
-        <ValidationComponent output={text} />
-        <p>{this.state.userName}</p>
-        {charList}
         <h1>Hi, I am a React App.</h1>
         <button style={style} onClick={this.showHandler}>
           Update Names
@@ -123,4 +94,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
