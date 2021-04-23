@@ -2,7 +2,7 @@
 import { Component, useState } from "react";
 import "./App.css";
 import Person from "./Person/Person.js";
-import Radium from "radium";
+import Radium, { StyleRoot } from "radium";
 class App extends Component {
   state = {
     persons: [
@@ -53,6 +53,10 @@ class App extends Component {
       color: "white",
       height: "40px",
       weight: "100px",
+      ":hover": {
+        backgroundColor: "lightGreen",
+        color: "black",
+      },
     };
     let person;
     if (this.state.showPerson) {
@@ -74,6 +78,10 @@ class App extends Component {
         </div>
       );
       style.backgroundColor = "purple";
+      style[":hover"] = {
+        backgroundColor: "salmon",
+        color: "black",
+      };
     }
     let text;
     if (this.state.numberOfChar <= 5) {
@@ -83,13 +91,15 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
-        <h1>Hi, I am a React App.</h1>
-        <button style={style} onClick={this.showHandler}>
-          Update Names
-        </button>
-        {person}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I am a React App.</h1>
+          <button style={style} onClick={this.showHandler}>
+            Update Names
+          </button>
+          {person}
+        </div>
+      </StyleRoot>
     );
   }
 }
