@@ -1,13 +1,12 @@
 // import logo from './logo.svg';
 import { Component, useState } from "react";
 import classes from "./App.module.css";
-import Person from "./Person/Person.js";
+import Person from "./Persons/Person/Person.js";
 import UserInput from "./UserInput.js";
 import UserOutput from "./UserOutput.js";
 import ValidationComponent from "./ValidationComponent.js";
 import CharComponent from "./CharComponent.js";
-import styled from "styled-components";
-
+import Persons from "./Persons/Persons.js";
 class App extends Component {
   state = {
     persons: [
@@ -46,15 +45,6 @@ class App extends Component {
     this.setState({ persons: persons });
   };
 
-  // nameHandler = (name) => {
-  //   this.setState({
-  //     persons: [
-  //       { name: name, age: 20 },
-  //       { name: "Diana", age: 21 },
-  //     ],
-  //   });
-  // };
-
   showHandler = () => {
     const show = this.state.showPerson;
     this.setState({ showPerson: !show });
@@ -73,19 +63,11 @@ class App extends Component {
     if (this.state.showPerson) {
       person = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                click={() => this.deleteHandler(index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                changed={(event) => {
-                  return this.changeHandler(event, person.id);
-                }}
-              />
-            );
-          })}
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deleteHandler}
+            changed={this.changeHandler}
+          />
         </div>
       );
       btnClass.push(classes.Red);
