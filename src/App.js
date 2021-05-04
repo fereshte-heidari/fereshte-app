@@ -1,8 +1,13 @@
 // import logo from './logo.svg';
 import { Component, useState } from "react";
-import "./App.css";
+import classes from "./App.module.css";
 import Person from "./Person/Person.js";
-import Radium, { StyleRoot } from "radium";
+import UserInput from "./UserInput.js";
+import UserOutput from "./UserOutput.js";
+import ValidationComponent from "./ValidationComponent.js";
+import CharComponent from "./CharComponent.js";
+import styled from "styled-components";
+
 class App extends Component {
   state = {
     persons: [
@@ -11,6 +16,23 @@ class App extends Component {
       { id: "m22ahla1", name: "Diana", age: 21 },
     ],
     showPerson: false,
+    numberOfChar: 0,
+    userName: "",
+  };
+
+  inputChangeHandler = (event) => {
+    this.setState({
+      numberOfChar: event.target.value.length,
+      userName: event.target.value,
+    });
+  };
+
+  deletingHandler = (index) => {
+    let userName = this.state.userName.split("");
+    userName.splice(index, 1);
+    let updatedUserName = userName.join("");
+
+    this.setState({ userName: updatedUserName });
   };
 
   changeHandler = (event, id) => {
@@ -46,19 +68,8 @@ class App extends Component {
   };
 
   render() {
-    const style = {
-      border: "solid blue 1px",
-      cursor: "pointer",
-      backgroundColor: "green",
-      color: "white",
-      height: "40px",
-      weight: "100px",
-      ":hover": {
-        backgroundColor: "lightGreen",
-        color: "black",
-      },
-    };
     let person;
+    let btnClass = [classes.Button];
     if (this.state.showPerson) {
       person = (
         <div>
@@ -77,11 +88,7 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor = "purple";
-      style[":hover"] = {
-        backgroundColor: "salmon",
-        color: "black",
-      };
+      btnClass.push(classes.Red);
     }
     let text;
     if (this.state.numberOfChar <= 5) {
@@ -90,18 +97,30 @@ class App extends Component {
       text = "Text long enough";
     }
 
+    const charList = this.state.userName.split("").map((user, index) => {
+      return (
+        <CharComponent
+          deleting={() => this.deletingHandler(index)}
+          letter={user}
+          key={index}
+        />
+      );
+    });
+
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1>Hi, I am a React App.</h1>
-          <button style={style} onClick={this.showHandler}>
-            Update Names
-          </button>
-          {person}
-        </div>
-      </StyleRoot>
+      <div className={classes.App}>
+        <input onChange={this.inputChangeHandler} />
+        <ValidationComponent output={text} />
+        <p>{this.state.userName}</p>
+        {charList}
+        <h1>Hi, I am a React App.</h1>
+        <button className={btnClass.join(" ")} onClick={this.showHandler}>
+          Update Names
+        </button>
+        {person}
+      </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
