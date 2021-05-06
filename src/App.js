@@ -95,7 +95,7 @@ class App extends Component {
         <ValidationComponent output={text} />
         <p>{this.state.userName}</p>
         {charList}
-        <h1>Hi, I am a React App.</h1>
+        <h1>{this.props.appTitle}</h1>
         <button className={btnClass.join(" ")} onClick={this.showHandler}>
           Update Names
         </button>
